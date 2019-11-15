@@ -25,6 +25,7 @@ target/
 .mvn
 mvnw.cmd
 mvnw
+overlays/
 
 ### STS ###
 .apt_generated
