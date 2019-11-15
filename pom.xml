@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>cn.jbone</groupId>
+  <artifactId>jbone-sso</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <modules>
+    <module>jbone-sso-server</module>
+      <module>jbone-sso-common</module>
+    <module>jbone-sso-client</module>
+  </modules>
+  <packaging>pom</packaging>
+
+  <name>jbone-sso</name>
+
+  <properties>
+    <jbone.version>1.0.0</jbone.version>
+    <jbone.system.version>1.0.0-SNAPSHOT</jbone.system.version>
+    <spring.boot.version>2.1.1.RELEASE</spring.boot.version>
+    <shiro.version>1.4.0</shiro.version>
+  </properties>
+
+  <dependencyManagement>
+
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>Greenwich.SR3</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring.boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>cn.jbone</groupId>
+        <artifactId>jbone-system-api</artifactId>
+        <version>${jbone.system.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>cn.jbone</groupId>
+        <artifactId>jbone-configuration</artifactId>
+        <version>${jbone.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.jbone</groupId>
+        <artifactId>jbone-common</artifactId>
+        <version>${jbone.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>cn.jbone</groupId>
+        <artifactId>jbone-sso-client</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>cn.jbone</groupId>
+        <artifactId>jbone-system-api-starter</artifactId>
+        <version>${jbone.system.version}</version>
+        <exclusions>
+          <exclusion>
+              <groupId>org.springframework.cloud</groupId>
+              <artifactId>spring-cloud-starter-openfeign</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-sleuth-core</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-sleuth-core</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+          </exclusion>
+
+        </exclusions>
+      </dependency>
+
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>druid</artifactId>
+        <version>${druid.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>cn.jbone</groupId>
+        <artifactId>jbone-ui</artifactId>
+        <version>${jbone.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>cn.jbone</groupId>
+        <artifactId>jbone-errors</artifactId>
+        <version>${jbone.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>cn.jbone</groupId>
+        <artifactId>jbone-sm-monitor-publisher</artifactId>
+        <version>${jbone.version}</version>
+      </dependency>
+
+
+      <dependency>
+        <groupId>org.apache.shiro</groupId>
+        <artifactId>shiro-spring-boot-starter</artifactId>
+        <version>${shiro.version}</version>
+      </dependency>
+
+    </dependencies>
+  </dependencyManagement>
+
+
+</project>
