@@ -6,6 +6,9 @@ import java.io.Serializable;
  * 用户信息
  */
 public class UserInfo implements Serializable {
+
+
+    private static final long serialVersionUID = -406746474412278810L;
     private UserBaseInfo baseInfo;
     private UserAuthInfo authInfo;
     private UserSecurityInfo securityInfo;
@@ -32,5 +35,10 @@ public class UserInfo implements Serializable {
 
     public void setSecurityInfo(UserSecurityInfo securityInfo) {
         this.securityInfo = securityInfo;
+    }
+
+    @Override
+    public String toString() {
+        return this.baseInfo.getRealname();
     }
 }

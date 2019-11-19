@@ -7,6 +7,7 @@ import java.io.Serializable;
  */
 public class UserSecurityInfo implements Serializable {
 
+    private static final long serialVersionUID = -6920169168405583768L;
     private String password;
     private int locked;
     private String salt;

@@ -1,6 +1,6 @@
 package cn.jbone.sso.client.utils;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.session.Session;
 

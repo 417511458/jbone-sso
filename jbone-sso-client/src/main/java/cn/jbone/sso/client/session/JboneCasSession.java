@@ -1,6 +1,6 @@
 package cn.jbone.sso.client.session;
 
-import cn.jbone.system.common.UserResponseDO;
+import cn.jbone.sso.common.domain.UserInfo;
 import com.alibaba.fastjson.JSON;
 import org.apache.shiro.session.mgt.SimpleSession;
 import org.apache.shiro.subject.SimplePrincipalCollection;
@@ -21,13 +21,13 @@ public class JboneCasSession extends SimpleSession {
         this.serverName = serverName;
     }
 
-    public UserResponseDO getUserInfo(){
-        UserResponseDO userModel = null;
+    public UserInfo getUserInfo(){
+        UserInfo userInfo = null;
         for (Map.Entry<Object,Object> entry : getAttributes().entrySet()){
             if(entry.getValue() instanceof SimplePrincipalCollection){
                 SimplePrincipalCollection principalCollection = (SimplePrincipalCollection)entry.getValue();
-                userModel = principalCollection.oneByType(UserResponseDO.class);
-                return userModel;
+                userInfo = principalCollection.oneByType(UserInfo.class);
+                return userInfo;
             }
         }
         return null;

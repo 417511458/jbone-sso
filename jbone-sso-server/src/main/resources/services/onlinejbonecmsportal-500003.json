@@ -5,5 +5,5 @@
   "id" : 500003,
   "description" : "Jbone内容发布系统-前端展示系统",
   "logoutType" : "BACK_CHANNEL",
-  "logoutUrl" : "http://jbone.cn/cas?client_name=CasClient"
+  "logoutUrl" : "http://jbone.cn/sso?client_name=CasClient"
 }

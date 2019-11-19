@@ -7,13 +7,11 @@ import cn.jbone.sso.client.realm.JboneCasRealm;
 import cn.jbone.sso.client.session.JboneCasSessionDao;
 import cn.jbone.sso.client.session.JboneCasSessionFactory;
 import cn.jbone.sso.client.session.JboneSessionTicketStore;
-import cn.jbone.system.api.UserApi;
 import io.buji.pac4j.context.ShiroSessionStore;
 import io.buji.pac4j.filter.CallbackFilter;
 import io.buji.pac4j.filter.LogoutFilter;
 import io.buji.pac4j.filter.SecurityFilter;
 import io.buji.pac4j.subject.Pac4jSubjectFactory;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.session.SessionListener;
 import org.apache.shiro.session.mgt.SessionFactory;
@@ -36,6 +34,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.DelegatingFilterProxy;
 
 import javax.servlet.DispatcherType;
@@ -54,12 +53,15 @@ public class ShiroCasConfiguration {
     @Bean
     Config getConfig(JboneConfiguration jboneConfiguration, ShiroSessionStore sessionStore, JboneCasLogoutHandler jboneCasLogoutHandler){
         CasConfiguration casConfiguration = new CasConfiguration(jboneConfiguration.getSso().getSsoServerUrl()+jboneConfiguration.getSso().getLoginUrl(), jboneConfiguration.getSso().getSsoServerUrl());
-        casConfiguration.setAcceptAnyProxy(true);
         casConfiguration.setLogoutHandler(jboneCasLogoutHandler);
+        casConfiguration.setAcceptAnyProxy(true);
+        casConfiguration.setLoginUrl(jboneConfiguration.getSso().getSsoServerUrl() + jboneConfiguration.getSso().getLoginUrl());
+//        casConfiguration.setProtocol(CasProtocol.CAS20); //注意：2。0协议不支持扩展属性传递
+        casConfiguration.setPrefixUrl(jboneConfiguration.getSso().getSsoServerUrl() + "/");
 
         CasClient casClient = new CasClient(casConfiguration);
         casClient.setCallbackUrl(jboneConfiguration.getSso().getCurrentServerUrlPrefix() + jboneConfiguration.getSso().getSsoFilterUrlPattern() + "?client_name=CasClient");
-        casClient.setIncludeClientNameInCallbackUrl(false);
+        casClient.setName("CasClient");
 
         Clients clients = new Clients(jboneConfiguration.getSso().getCurrentServerUrlPrefix() + jboneConfiguration.getSso().getSsoFilterUrlPattern() + "?client_name=CasClient", casClient);
         Config config = new Config(clients);
@@ -90,8 +92,8 @@ public class ShiroCasConfiguration {
     }
 
     @Bean
-    public JboneCasRealm getJboneCasRealm(EhCacheManager ehCacheManager, UserApi userApi, JboneConfiguration jboneConfiguration){
-        JboneCasRealm realm = new JboneCasRealm(ehCacheManager, userApi, jboneConfiguration.getSys().getServerName());
+    public JboneCasRealm getJboneCasRealm(EhCacheManager ehCacheManager, JboneConfiguration jboneConfiguration){
+        JboneCasRealm realm = new JboneCasRealm(ehCacheManager, jboneConfiguration.getSys().getServerName());
         return realm;
     }
 
@@ -204,7 +206,7 @@ public class ShiroCasConfiguration {
 
         //如果配置了/**，则优先自定义的过滤规则，如果没有配置，则全部由cas过滤
         String common = filterChainDefinitionMap.get("/**");
-        if(StringUtils.isBlank(common)){
+        if(StringUtils.isEmpty(common)){
             filterChainDefinitionMap.put("/**", "security");
         }else if(!common.equals("anon")){
             filterChainDefinitionMap.put("/**", "security," + common);

@@ -7,6 +7,7 @@ import java.util.List;
  * 菜单信息
  */
 public class MenuInfo implements Serializable ,Comparable<MenuInfo>{
+    private static final long serialVersionUID = -8932497824864351438L;
     private int id;
     private Integer systemId;
     private Integer pid;

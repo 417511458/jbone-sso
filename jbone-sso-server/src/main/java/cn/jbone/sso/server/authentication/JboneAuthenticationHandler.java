@@ -3,9 +3,12 @@ package cn.jbone.sso.server.authentication;
 import cn.jbone.common.rpc.Result;
 import cn.jbone.common.utils.PasswordUtils;
 import cn.jbone.sso.common.SsoConstants;
+import cn.jbone.sso.common.domain.*;
 import cn.jbone.system.api.UserApi;
 import cn.jbone.system.common.UserRequestDO;
 import cn.jbone.system.common.UserResponseDO;
+import cn.jbone.system.common.dto.response.MenuInfoResponseDTO;
+import com.alibaba.fastjson.JSON;
 import org.apereo.cas.authentication.AuthenticationHandlerExecutionResult;
 import org.apereo.cas.authentication.PreventedException;
 import org.apereo.cas.authentication.credential.UsernamePasswordCredential;
@@ -18,7 +21,9 @@ import org.springframework.util.CollectionUtils;
 
 import javax.security.auth.login.FailedLoginException;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class JboneAuthenticationHandler extends AbstractUsernamePasswordAuthenticationHandler {
@@ -62,12 +67,96 @@ public class JboneAuthenticationHandler extends AbstractUsernamePasswordAuthenti
             throw new FailedLoginException("用户没有登录权限");
         }
         Map<String,Object> attributes = new HashMap<>();
-        attributes.put(SsoConstants.USER_INFO,userResponseDO);
+        attributes.put(SsoConstants.USER_INFO, JSON.toJSONString(converUserInfo(userResponseDO)));
+//          //注意，这里只能传基本类型，保存后从客户端获取
+//        List<String> testList = new ArrayList<>();
+//        testList.add("111");
+//        testList.add("222");
+//        attributes.put("testList",testList);
+//        attributes.put("testUserInfo",converUserInfo(userResponseDO));
 
         return createHandlerResult(credential,
                 this.principalFactory.createPrincipal(credential.getUsername(),attributes));
 
 
+    }
+
+    private UserInfo converUserInfo(UserResponseDO userResponseDO){
+        if(userResponseDO == null){
+            return null;
+        }
+        UserInfo userInfo = new UserInfo();
+
+        //用户基本信息
+        UserBaseInfo baseInfo = new UserBaseInfo();
+        baseInfo.setAvatar(userResponseDO.getBaseInfo().getAvatar());
+        baseInfo.setEmail(userResponseDO.getBaseInfo().getEmail());
+        baseInfo.setId(userResponseDO.getBaseInfo().getId());
+        baseInfo.setPhone(userResponseDO.getBaseInfo().getPhone());
+        baseInfo.setRealname(userResponseDO.getBaseInfo().getRealname());
+        baseInfo.setSex(userResponseDO.getBaseInfo().getSex());
+        baseInfo.setUsername(userResponseDO.getBaseInfo().getUsername());
+
+        userInfo.setBaseInfo(baseInfo);
+
+
+        //用户权限信息
+        if(userResponseDO.getAuthInfo() != null){
+            UserAuthInfo authInfo = new UserAuthInfo();
+            authInfo.setPermissions(userResponseDO.getAuthInfo().getPermissions());
+            authInfo.setRoles(userResponseDO.getAuthInfo().getRoles());
+            authInfo.setAllMenus(convertMenuInfos(userResponseDO.getAuthInfo().getMenus()));
+
+            userInfo.setAuthInfo(authInfo);
+        }
+
+
+        //用户安全信息
+        if(userResponseDO.getSecurityInfo() != null){
+            UserSecurityInfo userSecurityInfo = new UserSecurityInfo();
+            userSecurityInfo.setLocked(userResponseDO.getSecurityInfo().getLocked());
+            userSecurityInfo.setPassword(userResponseDO.getSecurityInfo().getPassword());
+            userSecurityInfo.setSalt(userResponseDO.getSecurityInfo().getSalt());
+
+            userInfo.setSecurityInfo(userSecurityInfo);
+        }
+
+
+        return userInfo;
+    }
+
+    private Map<String,List<MenuInfo>> convertMenuInfos(Map<String, List<MenuInfoResponseDTO>> menusResponse){
+        if(CollectionUtils.isEmpty(menusResponse)){
+            return null;
+        }
+        Map<String,List<MenuInfo>> menusMap = new HashMap<>();
+        for (Map.Entry<String,List<MenuInfoResponseDTO>> entry : menusResponse.entrySet()){
+            menusMap.put(entry.getKey(),convertMenuInfos(entry.getValue()));
+        }
+        return menusMap;
+    }
+
+    private List<MenuInfo> convertMenuInfos(List<MenuInfoResponseDTO> menuInfoResponseDTOS){
+        if(org.apache.commons.collections.CollectionUtils.isEmpty(menuInfoResponseDTOS)){
+            return null;
+        }
+
+        List<MenuInfo> menuInfos = new ArrayList<>();
+        for (MenuInfoResponseDTO menuInfoResponseDTO : menuInfoResponseDTOS){
+            MenuInfo menuInfo = new MenuInfo();
+            menuInfo.setIcon(menuInfoResponseDTO.getIcon());
+            menuInfo.setId(menuInfoResponseDTO.getId());
+            menuInfo.setName(menuInfoResponseDTO.getName());
+            menuInfo.setOrders(menuInfoResponseDTO.getOrders());
+            menuInfo.setPid(menuInfoResponseDTO.getPid());
+            menuInfo.setSystemId(menuInfoResponseDTO.getSystemId());
+            menuInfo.setTarget(menuInfoResponseDTO.getTarget());
+            menuInfo.setUrl(menuInfoResponseDTO.getUrl());
+            menuInfo.setVersion(menuInfoResponseDTO.getVersion());
+            menuInfo.setChildMenus(convertMenuInfos(menuInfoResponseDTO.getChildMenus()));
+            menuInfos.add(menuInfo);
+        }
+        return menuInfos;
     }
 
 

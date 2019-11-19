@@ -6,5 +6,5 @@
   "description" : "Jbone系统管理，包含系统管理、权限管理、菜单管理等",
   "evaluationOrder" : 1,
   "logoutType" : "BACK_CHANNEL",
-  "logoutUrl" : "http://sysadmin.jbone.cn/cas?client_name=CasClient"
+  "logoutUrl" : "http://sysadmin.jbone.cn/sso?client_name=CasClient"
 }

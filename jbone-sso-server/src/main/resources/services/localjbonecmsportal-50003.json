@@ -5,5 +5,8 @@
   "id" : 50003,
   "description" : "Jbone Cms 门户",
   "logoutType" : "BACK_CHANNEL",
-  "logoutUrl" : "http://cmsportal.local.jbone.cn/cas?client_name=CasClient"
+  "attributeReleasePolicy": {
+    "@class": "org.apereo.cas.services.ReturnAllAttributeReleasePolicy"
+  },
+  "logoutUrl" : "http://cmsportal.local.jbone.cn/sso?client_name=CasClient"
 }

@@ -5,9 +5,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.DefaultSessionKey;
 import org.apache.shiro.session.mgt.SessionManager;
-import org.pac4j.cas.logout.DefaultCasLogoutHandler;
 import org.pac4j.core.context.WebContext;
 import org.pac4j.core.context.session.SessionStore;
+import org.pac4j.core.logout.handler.DefaultLogoutHandler;
 import org.pac4j.core.profile.ProfileManager;
 
 import java.io.Serializable;
@@ -16,7 +16,7 @@ import java.io.Serializable;
  * Jbone单点登出
  * @param <C>
  */
-public class JboneCasLogoutHandler<C extends WebContext> extends DefaultCasLogoutHandler<C> {
+public class JboneCasLogoutHandler<C extends WebContext> extends DefaultLogoutHandler<C> {
 
 
     public JboneCasLogoutHandler(JboneSessionTicketStore sessionTicketStore){

@@ -10,6 +10,7 @@ import java.util.Map;
  */
 public class JboneToken implements Serializable {
     public static final String PREFIX = "jbone:";
+    private static final long serialVersionUID = -8975152371274081154L;
     private long creationTime;
     private String id;
     private long timeout;

@@ -25,6 +25,16 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-spring-boot-starter</artifactId>
         </dependency>
@@ -32,17 +42,17 @@
         <dependency>
             <groupId>org.pac4j</groupId>
             <artifactId>pac4j-cas</artifactId>
-            <version>2.3.1</version>
+            <version>3.4.0</version>
         </dependency>
         <dependency>
             <groupId>io.buji</groupId>
             <artifactId>buji-pac4j</artifactId>
-            <version>3.2.0</version>
+            <version>4.1.1</version>
         </dependency>
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-ehcache</artifactId>
-            <version>1.4.0</version>
+            <version>1.4.2</version>
         </dependency>
 
         <dependency>
@@ -52,15 +62,16 @@
 
         <dependency>
             <groupId>cn.jbone</groupId>
-            <artifactId>jbone-system-api</artifactId>
+            <artifactId>jbone-sso-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.jbone</groupId>
+            <artifactId>jbone-common</artifactId>
         </dependency>
         <dependency>
             <groupId>cn.jbone</groupId>
             <artifactId>jbone-configuration</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>cn.jbone</groupId>
-            <artifactId>jbone-system-api-starter</artifactId>
         </dependency>
     </dependencies>
 </project>
