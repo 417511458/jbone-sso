@@ -1,0 +1,12 @@
+{
+  "@class" : "org.apereo.cas.services.RegexRegisteredService",
+  "serviceId" : "^http://gateway.local.jbone.cn.*",
+  "name" : "Jbone网关",
+  "id" : 10005,
+  "description" : "Jbone网关",
+  "logoutType" : "BACK_CHANNEL",
+  "attributeReleasePolicy": {
+    "@class": "org.apereo.cas.services.ReturnAllAttributeReleasePolicy"
+  },
+  "logoutUrl" : "http://gateway.local.jbone.cn/sso?client_name=CasClient"
+}

@@ -3,6 +3,7 @@ package cn.jbone.sso.server.authentication;
 import cn.jbone.sso.common.SsoConstants;
 import cn.jbone.sso.common.domain.*;
 import cn.jbone.sso.common.token.JboneToken;
+import com.alibaba.fastjson.JSON;
 import org.apereo.cas.authentication.Authentication;
 import org.apereo.cas.authentication.principal.Service;
 import org.apereo.cas.ticket.ExpirationPolicy;
@@ -36,7 +37,7 @@ public class JboneAccessTokenFactory extends DefaultAccessTokenFactory {
         jboneToken.setCreationTime(new Date().getTime());
         jboneToken.setTimeout(accessToken.getExpirationPolicy().getTimeToLive());
         Map<String,Object> attributes = ticketGrantingTicket.getAuthentication().getPrincipal().getAttributes();
-        UserInfo userInfo = (UserInfo) ((List) attributes.get(SsoConstants.USER_INFO)).get(0);
+        UserInfo userInfo = JSON.parseObject(((List) attributes.get(SsoConstants.USER_INFO)).get(0).toString(),UserInfo.class);
         jboneToken.setUserInfo(userInfo);
         this.redisTemplate.opsForValue().set(JboneToken.PREFIX + accessToken.getId(),jboneToken,accessToken.getExpirationPolicy().getTimeToLive(), TimeUnit.SECONDS);
         return accessToken;
