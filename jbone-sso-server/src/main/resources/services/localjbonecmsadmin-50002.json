@@ -8,8 +8,12 @@
   "description" : "Jbone内容管理系统",
   "generateRefreshToken": false,
   "bypassApprovalPrompt": true,
-  "attributeReleasePolicy": {
-    "@class": "org.apereo.cas.services.ReturnAllAttributeReleasePolicy"
+//  "attributeReleasePolicy": {
+//    "@class": "org.apereo.cas.services.ReturnAllAttributeReleasePolicy"
+//  },
+  "attributeReleasePolicy" : {
+    "@class" : "org.apereo.cas.services.ReturnAllowedAttributeReleasePolicy",
+    "allowedAttributes" : [ "java.util.ArrayList", [ "userInfo"] ]
   },
   "supportedGrantTypes": [ "java.util.HashSet", [ "authorization_code", "password","refresh_token","client_credentials" ] ],
   "supportedResponseTypes": [ "java.util.HashSet", [ "code", "token","device_code" ] ]
