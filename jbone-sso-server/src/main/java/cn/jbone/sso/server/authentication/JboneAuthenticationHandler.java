@@ -4,6 +4,8 @@ import cn.jbone.common.rpc.Result;
 import cn.jbone.common.utils.PasswordUtils;
 import cn.jbone.sso.common.SsoConstants;
 import cn.jbone.sso.common.domain.*;
+import cn.jbone.sso.common.exceptions.AccountInvalidPasswordException;
+import cn.jbone.sso.common.exceptions.AccountPermissionDeniedException;
 import cn.jbone.system.api.UserApi;
 import cn.jbone.system.common.UserRequestDO;
 import cn.jbone.system.common.UserResponseDO;
@@ -19,6 +21,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 
+import javax.security.auth.login.AccountLockedException;
+import javax.security.auth.login.AccountNotFoundException;
 import javax.security.auth.login.FailedLoginException;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
@@ -45,7 +49,7 @@ public class JboneAuthenticationHandler extends AbstractUsernamePasswordAuthenti
 
         if(result == null || !result.isSuccess() || result.getData() == null){
             logger.warn("用户[{}]不存在",credential.getUsername());
-            throw new FailedLoginException("用户不存在");
+            throw new AccountNotFoundException("用户不存在");
         }
 
         UserResponseDO userResponseDO = result.getData();
@@ -53,18 +57,18 @@ public class JboneAuthenticationHandler extends AbstractUsernamePasswordAuthenti
 
         String caculatePwd = PasswordUtils.getMd5PasswordWithSalt(originalPassword,userResponseDO.getSecurityInfo().getSalt());
         if(!caculatePwd.equals(userResponseDO.getSecurityInfo().getPassword())){
-            throw new FailedLoginException("密码错误");
+            throw new AccountInvalidPasswordException("密码错误");
         }
 
 
         if(userResponseDO.getSecurityInfo().getLocked() == 1){
             logger.warn("用户[{}]已被锁定",credential.getUsername());
-            throw new FailedLoginException("用户已被锁定，禁止登录");
+            throw new AccountLockedException("用户已被锁定，禁止登录");
         }
 
         if(userResponseDO.getAuthInfo() == null || CollectionUtils.isEmpty(userResponseDO.getAuthInfo().getRoles()) || !userResponseDO.getAuthInfo().getRoles().contains(requiredRole)){
             logger.warn("用户[{}]没有登录权限",credential.getUsername());
-            throw new FailedLoginException("用户没有登录权限");
+            throw new AccountPermissionDeniedException("用户没有登录权限");
         }
         Map<String,Object> attributes = new HashMap<>();
         attributes.put(SsoConstants.USER_INFO, JSON.toJSONString(converUserInfo(userResponseDO)));
