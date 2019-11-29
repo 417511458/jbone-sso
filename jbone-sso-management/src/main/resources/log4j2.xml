@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Specify the refresh internal in seconds. -->
+<Configuration monitorInterval="5" packages="org.apereo.cas.logging">
+    <Properties>
+        <Property name="baseDir">/tmp/logs</Property>
+        <Property name="cas.log.level">info</Property>
+        <Property name="spring.webflow.log.level">info</Property>
+        <Property name="spring.security.log.level">info</Property>
+        <Property name="spring.web.log.level">info</Property>
+        <Property name="spring.boot.log.level">v</Property>
+        <Property name="ldap.log.level">info</Property>
+        <Property name="pac4j.log.level">info</Property>
+    </Properties>
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%highlight{%d %p [%c] - &lt;%m&gt;}%n"/>
+        </Console>
+
+        <RollingFile name="file" fileName="${baseDir}/cas-management.log" append="true"
+                     filePattern="${baseDir}/cas-%d{yyyy-MM-dd-HH}-%i.log">
+            <PatternLayout pattern="%highlight{%d %p [%c] - &lt;%m&gt;%n}" />
+            <Policies>
+                <OnStartupTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+            <DefaultRolloverStrategy max="5" compressionLevel="9">
+                <Delete basePath="${baseDir}" maxDepth="2">
+                    <IfFileName glob="*/*.log.gz" />
+                    <IfLastModified age="7d" />
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+        <CasAppender name="casFile">
+            <AppenderRef ref="file"/>
+        </CasAppender>
+        <CasAppender name="casConsole">
+            <AppenderRef ref="console"/>
+        </CasAppender>
+    </Appenders>
+    <Loggers>
+        <AsyncLogger name="org.apereo.cas" level="${sys:cas.log.level}" includeLocation="true" />
+        <AsyncLogger name="org.apereo.spring" level="${sys:cas.log.level}" includeLocation="true" />
+        <AsyncLogger name="org.apereo.services.persondir" level="${sys:cas.log.level}" includeLocation="true" />
+
+        <AsyncLogger name="org.springframework.boot" level="${sys:spring.boot.log.level}" />
+        <AsyncLogger name="org.springframework.boot.context.embedded" level="info" />
+        <AsyncLogger name="org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration" level="${sys:spring.security.log.level}" />
+        <AsyncLogger name="org.springframework.boot.autoconfigure.security" level="${sys:spring.security.log.level}" />
+        <AsyncLogger name="org.springframework.boot.devtools" level="off" />
+
+        <AsyncLogger name="org.springframework" level="info" includeLocation="true" />
+        <AsyncLogger name="org.springframework.webflow" level="${sys:spring.webflow.log.level}" includeLocation="true"/>
+        <AsyncLogger name="org.springframework.aop" level="info" includeLocation="true" />
+        <AsyncLogger name="org.springframework.web" level="info" includeLocation="true"/>
+        <AsyncLogger name="org.springframework.web.client" level="info" includeLocation="true" />
+        <AsyncLogger name="org.springframework.security" level="${sys:spring.security.log.level}" includeLocation="true"/>
+        <AsyncLogger name="org.springframework.web" level="${sys:spring.web.log.level}" includeLocation="true"/>
+        <AsyncLogger name="org.springframework.context.annotation" level="off" includeLocation="true"/>
+
+        <AsyncLogger name="org.thymeleaf" level="info" includeLocation="true"/>
+        <AsyncLogger name="org.pac4j" level="${sys:pac4j.log.level}" includeLocation="true"/>
+
+        <AsyncLogger name="org.ldaptive" level="${sys:ldap.log.level}" includeLocation="true"/>
+
+        <AsyncRoot level="info">
+            <AppenderRef ref="casFile"/>
+            <AppenderRef ref="casConsole"/>
+        </AsyncRoot>
+    </Loggers>
+</Configuration>

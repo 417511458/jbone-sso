@@ -5,7 +5,7 @@
     <parent>
         <artifactId>jbone-sso</artifactId>
         <groupId>cn.jbone</groupId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -18,7 +18,7 @@
     <properties>
         <java.version>11</java.version>
 
-        <cas.version>6.0.0</cas.version>
+        <cas.version>6.0.1</cas.version>
     </properties>
 
     <dependencies>
@@ -712,6 +712,18 @@
             </exclusions>
         </dependency>
 
+        <dependency>
+            <groupId>org.apereo.cas</groupId>
+            <artifactId>cas-server-support-discovery-profile</artifactId>
+            <version>${cas.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-core</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
         <!-- cas -->
 
         <!-- https://mvnrepository.com/artifact/com.fasterxml/classmate -->
@@ -870,7 +882,7 @@
         <dependency>
             <groupId>cn.jbone</groupId>
             <artifactId>jbone-sso-common</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.0.0</version>
         </dependency>
 
         <dependency>

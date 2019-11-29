@@ -23,12 +23,8 @@ import org.springframework.util.CollectionUtils;
 
 import javax.security.auth.login.AccountLockedException;
 import javax.security.auth.login.AccountNotFoundException;
-import javax.security.auth.login.FailedLoginException;
 import java.security.GeneralSecurityException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class JboneAuthenticationHandler extends AbstractUsernamePasswordAuthenticationHandler {
 
@@ -71,18 +67,38 @@ public class JboneAuthenticationHandler extends AbstractUsernamePasswordAuthenti
             throw new AccountPermissionDeniedException("用户没有登录权限");
         }
         Map<String,Object> attributes = new HashMap<>();
-        attributes.put(SsoConstants.USER_INFO, JSON.toJSONString(converUserInfo(userResponseDO)));
+        UserInfo userInfo = converUserInfo(userResponseDO);
+        attributes.put(SsoConstants.USER_INFO, JSON.toJSONString(userInfo));
+        attributes.put(SsoConstants.ROLES,getUserRoles(userInfo));
+        attributes.put(SsoConstants.PERMISSIOINS,getUserPermissions(userInfo));
 //          //注意，这里只能传基本类型，保存后从客户端获取
 //        List<String> testList = new ArrayList<>();
 //        testList.add("111");
 //        testList.add("222");
 //        attributes.put("testList",testList);
 //        attributes.put("testUserInfo",converUserInfo(userResponseDO));
-
         return createHandlerResult(credential,
                 this.principalFactory.createPrincipal(credential.getUsername(),attributes));
 
 
+    }
+
+    public List<String> getUserRoles(UserInfo userInfo){
+        if(userInfo == null || userInfo.getAuthInfo() == null || CollectionUtils.isEmpty(userInfo.getAuthInfo().getRoles())){
+            return null;
+        }
+        List<String> roles = new ArrayList<>();
+        roles.addAll(userInfo.getAuthInfo().getRoles());
+        return roles;
+    }
+
+    public List<String> getUserPermissions(UserInfo userInfo){
+        if(userInfo == null || userInfo.getAuthInfo() == null || CollectionUtils.isEmpty(userInfo.getAuthInfo().getPermissions())){
+            return null;
+        }
+        List<String> roles = new ArrayList<>();
+        roles.addAll(userInfo.getAuthInfo().getPermissions());
+        return roles;
     }
 
     private UserInfo converUserInfo(UserResponseDO userResponseDO){

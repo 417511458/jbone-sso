@@ -6,11 +6,12 @@
 
   <groupId>cn.jbone</groupId>
   <artifactId>jbone-sso</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0</version>
   <modules>
     <module>jbone-sso-server</module>
       <module>jbone-sso-common</module>
     <module>jbone-sso-client</module>
+      <module>jbone-sso-management</module>
   </modules>
   <packaging>pom</packaging>
 
@@ -18,7 +19,7 @@
 
   <properties>
     <jbone.version>1.0.0</jbone.version>
-    <jbone.system.version>1.0.0-SNAPSHOT</jbone.system.version>
+    <jbone.system.version>1.0.0</jbone.system.version>
     <spring.boot.version>2.1.1.RELEASE</spring.boot.version>
     <shiro.version>1.4.0</shiro.version>
   </properties>
