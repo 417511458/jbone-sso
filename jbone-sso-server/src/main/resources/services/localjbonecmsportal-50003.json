@@ -1,6 +1,6 @@
 {
   "@class" : "org.apereo.cas.services.RegexRegisteredService",
-  "serviceId" : "^http://cmsportal.local.jbone.cn.*",
+  "serviceId" : "^http://cmsportal\\.local\\.jbone\\.cn.*",
   "name" : "Jbone Cms 门户",
   "id" : 50003,
   "description" : "Jbone Cms 门户",

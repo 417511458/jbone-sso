@@ -198,6 +198,29 @@
         </exclusion>
       </exclusions>
     </dependency>
+    <dependency>
+      <groupId>org.apereo.cas</groupId>
+      <artifactId>cas-server-support-redis-service-registry</artifactId>
+      <version>${cas.version}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>spring-core</artifactId>
+          <groupId>org.springframework</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apereo.cas</groupId>
+      <artifactId>cas-server-support-redis-core</artifactId>
+      <version>${cas.version}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>spring-core</artifactId>
+          <groupId>org.springframework</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
 
     <dependency>
       <groupId>org.apereo.cas</groupId>

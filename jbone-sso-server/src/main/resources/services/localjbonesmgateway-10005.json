@@ -1,6 +1,6 @@
 {
   "@class" : "org.apereo.cas.services.RegexRegisteredService",
-  "serviceId" : "^http://gateway.local.jbone.cn.*",
+  "serviceId" : "^http://gateway\\.local\\.jbone\\.cn.*",
   "name" : "Jbone网关",
   "id" : 10005,
   "description" : "Jbone网关",

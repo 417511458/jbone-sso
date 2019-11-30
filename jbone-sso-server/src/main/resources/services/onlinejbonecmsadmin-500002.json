@@ -3,7 +3,7 @@
   "clientId" : "cmsadminonline",
   "clientSecret" : "cmsadminonline",
   "id" : 500002,
-  "serviceId" : "^http://cmsadmin.jbone.cn.*",
+  "serviceId" : "^http://cmsadmin\\.jbone\\.cn.*",
   "name" : "Jbone内容管理系统",
   "description" : "Jbone内容管理系统",
   "generateRefreshToken": false,

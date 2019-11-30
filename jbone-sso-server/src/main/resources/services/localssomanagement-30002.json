@@ -1,6 +1,6 @@
 {
   "@class" : "org.apereo.cas.services.RegexRegisteredService",
-  "serviceId" : "^http://ssomanagement.local.jbone.cn.*",
+  "serviceId" : "^http://ssomanagement\\.local\\.jbone\\.cn.*",
   "name" : "Jbone sso系统管理",
   "id" : 30002,
   "description" : "Jbone系统管理，包含系统管理、权限管理、菜单管理等",
