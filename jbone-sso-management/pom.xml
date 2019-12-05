@@ -23,6 +23,10 @@
 
   <dependencies>
     <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.codehaus.groovy</groupId>
       <artifactId>groovy-jsr223</artifactId>
       <version>2.5.5</version>
@@ -212,7 +216,7 @@
 
     <dependency>
       <groupId>org.apereo.cas</groupId>
-      <artifactId>cas-server-support-redis-core</artifactId>
+      <artifactId>cas-server-core-api-events</artifactId>
       <version>${cas.version}</version>
       <exclusions>
         <exclusion>
@@ -224,9 +228,32 @@
 
     <dependency>
       <groupId>org.apereo.cas</groupId>
+      <artifactId>cas-server-support-redis-core</artifactId>
+      <version>${cas.version}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>spring-core</artifactId>
+          <groupId>org.springframework</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-log4j2</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apereo.cas</groupId>
       <artifactId>cas-mgmt-webapp</artifactId>
       <version>${cas.version}</version>
       <type>war</type>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apereo.cas</groupId>
+          <artifactId>cas-server-support-json-service-registry</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
   </dependencies>
 
@@ -259,6 +286,9 @@
           <warName>cas-management</warName>
           <failOnMissingWebXml>false</failOnMissingWebXml>
           <recompressZippedFiles>false</recompressZippedFiles>
+          <packagingExcludes>
+            WEB-INF/lib/cas-server-support-json-service-registry-6.0.1.jar
+          </packagingExcludes>
           <archive>
             <compress>false</compress>
             <manifestFile>${project.build.directory}/war/work/org.apereo.cas/cas-mgmt-webapp/META-INF/MANIFEST.MF

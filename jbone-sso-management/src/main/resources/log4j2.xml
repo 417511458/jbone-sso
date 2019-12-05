@@ -7,7 +7,7 @@
         <Property name="spring.webflow.log.level">info</Property>
         <Property name="spring.security.log.level">info</Property>
         <Property name="spring.web.log.level">info</Property>
-        <Property name="spring.boot.log.level">v</Property>
+        <Property name="spring.boot.log.level">info</Property>
         <Property name="ldap.log.level">info</Property>
         <Property name="pac4j.log.level">info</Property>
     </Properties>
