@@ -14,7 +14,6 @@ import java.io.Serializable;
 
 /**
  * Jbone单点登出
- * @param <C>
  */
 public class JboneCasLogoutHandler<C extends WebContext> extends DefaultLogoutHandler<C> {
 
@@ -49,8 +48,8 @@ public class JboneCasLogoutHandler<C extends WebContext> extends DefaultLogoutHa
 
     /**
      * cas认证中心回调此方法，用于销毁当前系统ticket对于的Session,从而注销用户
-     * @param context
-     * @param ticket
+     * @param context context
+     * @param ticket ticket
      */
     @Override
     public void destroySessionBack(C context, String ticket) {
@@ -59,8 +58,8 @@ public class JboneCasLogoutHandler<C extends WebContext> extends DefaultLogoutHa
 
     /**
      * 销毁Session
-     * @param context
-     * @param ticket
+     * @param context context
+     * @param ticket ticket
      */
     public void destroySession(C context, final String ticket) {
         ProfileManager manager = new ProfileManager(context);

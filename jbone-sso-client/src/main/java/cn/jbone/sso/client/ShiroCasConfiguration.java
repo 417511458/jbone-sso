@@ -106,6 +106,7 @@ public class ShiroCasConfiguration {
 
     /**
      * 注册DelegatingFilterProxy（Shiro）
+     * @return FilterRegistrationBean
      */
     @Bean
     public FilterRegistrationBean filterRegistrationBean() {
@@ -216,7 +217,13 @@ public class ShiroCasConfiguration {
     }
 
     /**
-     * ShiroFilter
+     * 过滤器
+     * @param securityManager ShiroCasConfiguration.
+     * @param jboneConfiguration jboneConfiguration
+     * @param redisTemplate redisTemplate
+     * @param sessionManager sessionManager
+     * @param config config
+     * @return shiroFilter
      */
     @Bean(name = "shiroFilter")
     public ShiroFilterFactoryBean getShiroFilterFactoryBean(DefaultWebSecurityManager securityManager, JboneConfiguration jboneConfiguration, StringRedisTemplate redisTemplate, DefaultWebSessionManager sessionManager, Config config) {

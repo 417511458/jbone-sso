@@ -38,8 +38,8 @@ public class JboneSessionTicketStore {
 
     /**
      * 存储SessionId和ticket的关系
-     * @param sessionId
-     * @param ticket
+     * @param sessionId sessionId
+     * @param ticket ticket
      */
     public void store(String sessionId,String ticket){
         ValueOperations<String,String> valueOperations = redisTemplate.opsForValue();
@@ -53,7 +53,7 @@ public class JboneSessionTicketStore {
 
     /**
      * 根据SessionId更新Session和ST的过期时间
-     * @param sessionId
+     * @param sessionId sessionId
      */
     public void expireBySession(String sessionId){
         expireBySession(sessionId,timeout);
@@ -61,7 +61,8 @@ public class JboneSessionTicketStore {
 
     /**
      * 根据SessionId更新Session和ST的过期时间
-     * @param sessionId
+     * @param sessionId sessionId
+     * @param timeout timeout
      */
     public void expireBySession(String sessionId,long timeout){
         ValueOperations<String,String> valueOperations = redisTemplate.opsForValue();
@@ -75,7 +76,7 @@ public class JboneSessionTicketStore {
 
     /**
      * 根据SessionId删除关系
-     * @param sessionId
+     * @param sessionId sessionId
      */
     public void deleteBySession(String sessionId){
         ValueOperations<String,String> valueOperations = redisTemplate.opsForValue();
@@ -103,8 +104,8 @@ public class JboneSessionTicketStore {
 
     /**
      * 根据SessionId获取Ticket
-     * @param sessionId
-     * @return
+     * @param sessionId sessionId
+     * @return sessionId
      */
     public String getTicket(String sessionId){
         ValueOperations<String,String> valueOperations = redisTemplate.opsForValue();
@@ -115,7 +116,7 @@ public class JboneSessionTicketStore {
     /**
      * 根据Ticket获取sessionId
      * @param ticket ST
-     * @return
+     * @return ST
      */
     public String getSessionId(String ticket){
         ValueOperations<String,String> valueOperations = redisTemplate.opsForValue();
