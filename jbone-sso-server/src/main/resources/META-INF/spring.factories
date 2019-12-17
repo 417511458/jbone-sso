@@ -1,2 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=cn.jbone.sso.server.pm.JbonePasswordManagementConfiguration,\
-  cn.jbone.sso.server.pswd.config.ChangePasswordConfiguration,cn.jbone.sso.server.authentication.JboneAuthenticationConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=

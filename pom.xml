@@ -15,9 +15,14 @@
   <version>1.0.0</version>
   <modules>
     <module>jbone-sso-server</module>
-      <module>jbone-sso-common</module>
+    <module>jbone-sso-common</module>
     <module>jbone-sso-client</module>
-      <module>jbone-sso-management</module>
+    <module>jbone-sso-management</module>
+    <module>jbone-sso-support-authentication-custom</module>
+    <module>jbone-sso-support-pm-custom</module>
+    <module>jbone-sso-support-thirdpartylogin</module>
+    <module>jbone-sso-support-authentication-shiro</module>
+    <module>jbone-sso-support-pm-webflow</module>
   </modules>
   <packaging>pom</packaging>
 
@@ -29,6 +34,7 @@
     <spring.boot.version>2.1.1.RELEASE</spring.boot.version>
     <shiro.version>1.4.0</shiro.version>
     <lombok.version>1.18.6</lombok.version>
+    <cas.version>6.0.1</cas.version>
   </properties>
 
   <dependencyManagement>

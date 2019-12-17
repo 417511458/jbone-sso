@@ -12,7 +12,7 @@
     <artifactId>jbone-sso-common</artifactId>
 
     <name>jbone-sso-common</name>
-    <url>http://www.jbone.cn</url>
+    <url>http://jbone.cn</url>
     <packaging>jar</packaging>
 
     <properties>

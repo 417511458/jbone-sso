@@ -13,7 +13,7 @@
     <packaging>jar</packaging>
 
     <name>jbone-sso-client</name>
-    <url>http://www.jbone.cn</url>
+    <url>http://jbone.cn</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

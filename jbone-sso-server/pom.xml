@@ -12,13 +12,11 @@
     <artifactId>jbone-sso-server</artifactId>
 
     <name>jbone-sso-server</name>
-    <url>http://www.jbone.cn</url>
+    <url>http://jbone.cn</url>
     <packaging>war</packaging>
 
     <properties>
         <java.version>11</java.version>
-
-        <cas.version>6.0.1</cas.version>
     </properties>
 
     <dependencies>
@@ -535,34 +533,10 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
-            <groupId>org.apereo.cas</groupId>
-            <artifactId>cas-server-support-pm-webflow</artifactId>
-            <version>${cas.version}</version>
-            <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-core</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apereo.cas</groupId>
-            <artifactId>cas-server-webapp-config</artifactId>
-            <version>${cas.version}</version>
-            <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-core</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
 
         <dependency>
             <groupId>org.apereo.cas</groupId>
-            <artifactId>cas-server-support-pm</artifactId>
+            <artifactId>cas-server-webapp-config</artifactId>
             <version>${cas.version}</version>
             <scope>provided</scope>
             <exclusions>
@@ -660,52 +634,6 @@
         </dependency>
         <dependency>
             <groupId>org.apereo.cas</groupId>
-            <artifactId>cas-server-support-shiro-authentication</artifactId>
-            <version>${cas.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-core</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apereo.cas</groupId>
-            <artifactId>cas-server-support-oauth-core</artifactId>
-            <version>${cas.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-core</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apereo.cas</groupId>
-            <artifactId>cas-server-support-oauth-api</artifactId>
-            <version>${cas.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-core</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apereo.cas</groupId>
-            <artifactId>cas-server-support-oauth-webflow</artifactId>
-            <version>${cas.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-core</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apereo.cas</groupId>
             <artifactId>cas-server-core-web</artifactId>
             <version>${cas.version}</version>
             <exclusions>
@@ -749,22 +677,7 @@
             </exclusions>
             <version>${cas.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-spring-boot-starter</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-core</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-            </exclusions>
-            <version>1.4.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-ehcache</artifactId>
-            <version>1.4.0</version>
-        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
@@ -776,10 +689,6 @@
             </exclusions>
         </dependency>
 
-        <dependency>
-            <groupId>cn.jbone</groupId>
-            <artifactId>jbone-system-api-starter</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
@@ -892,7 +801,25 @@
         <dependency>
             <groupId>cn.jbone</groupId>
             <artifactId>jbone-sso-common</artifactId>
-            <version>1.0.0</version>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.jbone</groupId>
+            <artifactId>jbone-sso-support-authentication-custom</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.jbone</groupId>
+            <artifactId>jbone-sso-support-pm-custom</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.jbone</groupId>
+            <artifactId>jbone-sso-support-thirdpartylogin</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
